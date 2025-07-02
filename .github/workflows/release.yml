@@ -7,8 +7,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     # Substitute the Manifest and Download URLs in the module.json
     - name: Substitute Manifest and Download Links For Versioned Ones
@@ -23,14 +26,14 @@ jobs:
         download: https://github.com/${{github.repository}}/releases/latest/download/npc-dialogue-bubbles.zip
 
     # Create a zip file with all files required by the module to add to the release
-    - run: zip -r ./npc-dialogue-bubbles.zip module.json scripts/ styles/ lang/ README.md
+    - run: zip -r ./npc-dialogue-bubbles.zip module.json scripts/ styles/ lang/ README.md CHANGELOG.md
 
     # Create a release for this specific version
     - name: Update Release with Files
       id: create_version_release
       uses: ncipollo/release-action@v1
       with:
-        allowUpdates: true # update the release if it already exists
+        allowUpdates: true
         name: ${{ github.event.release.name }}
         draft: false
         prerelease: false
