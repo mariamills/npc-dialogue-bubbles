@@ -240,9 +240,15 @@ class NPCDialogueBubbles {
      */
     static speakPhrase(token, dialogueData) {
         if (!token || !dialogueData || !dialogueData.phrases.length) return;
-        
+
+        // Don't show bubbles for hidden tokens (prevents revealing hidden NPCs to players)
+        if (token.document.hidden) {
+            this.debugLog(`Token ${token.id} is hidden, skipping dialogue bubble`);
+            return;
+        }
+
         const phrase = dialogueData.phrases[Math.floor(Math.random() * dialogueData.phrases.length)];
-        
+
         // Use Foundry's ChatBubbles API with pan disabled
         if (canvas.hud.bubbles) {
             canvas.hud.bubbles.say(token, phrase, {

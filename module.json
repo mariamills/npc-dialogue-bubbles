@@ -2,7 +2,7 @@
   "id": "npc-dialogue-bubbles",
   "title": "NPC Dialogue Bubbles",
   "description": "Adds rich, customizable idle speech to NPC tokens via chat bubbles—no macros or roll tables required.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibility": {
     "minimum": "11",
     "verified": "12"
